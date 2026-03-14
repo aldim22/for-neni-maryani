@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Untuk Istriku ❤️</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+
+body{
+background:linear-gradient(135deg,#fdfbfb,#ebedee);
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+font-family:"Segoe UI",sans-serif;
+overflow-x:hidden;
+padding:15px;
+}
+
+/* floating hearts */
+
+.heart-bg{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+pointer-events:none;
+z-index:0;
+}
+
+.heart-bg span{
+position:absolute;
+font-size:20px;
+animation:fall linear infinite;
+opacity:0.6;
+}
+
+@keyframes fall{
+0%{transform:translateY(-10vh);}
+100%{transform:translateY(110vh);}
+}
+
+/* card */
+
+.main-card{
+max-width:900px;
+width:100%;
+padding:35px;
+border-radius:22px;
+background:white;
+box-shadow:0 25px 60px rgba(0,0,0,0.15);
+text-align:center;
+position:relative;
+z-index:2;
+}
+
+/* title */
+
+.title{
+font-weight:700;
+font-size:30px;
+}
+
+.subtitle{
+color:#777;
+}
+
+/* countdown */
+
+.countdown{
+font-size:26px;
+font-weight:600;
+margin:25px 0;
+color:#ff4d6d;
+}
+
+/* mystery box */
+
+.box{
+height:130px;
+border-radius:16px;
+background:linear-gradient(145deg,#ff7a9a,#ff4d6d);
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer;
+font-size:50px;
+color:white;
+transition:.3s;
+box-shadow:0 12px 25px rgba(0,0,0,0.15);
+}
+
+.box:hover{
+transform:translateY(-6px) scale(1.05);
+}
+
+.box.locked{
+background:#d6d6d6;
+cursor:not-allowed;
+}
+
+.box.open{
+background:white;
+color:#ff4d6d;
+border:2px dashed #ff4d6d;
+}
+
+/* message */
+
+.message{
+margin-top:30px;
+display:none;
+animation:fade 1s;
+}
+
+.message-card{
+background:#fff0f3;
+padding:22px;
+border-radius:14px;
+font-size:20px;
+box-shadow:0 10px 20px rgba(0,0,0,0.08);
+}
+
+@keyframes fade{
+from{opacity:0;transform:translateY(20px);}
+to{opacity:1;transform:translateY(0);}
+}
+
+/* heart */
+
+.heart{
+font-size:28px;
+animation:beat 1s infinite;
+}
+
+@keyframes beat{
+0%{transform:scale(1)}
+50%{transform:scale(1.2)}
+100%{transform:scale(1)}
+}
+
+/* tombol area */
+
+.button-area{
+position:relative;
+height:110px;
+margin-top:25px;
+display:none;
+}
+
+.moving-btn{
+position:absolute;
+left:50%;
+top:40px;
+transform:translateX(-50%);
+transition:0.2s;
+}
+
+/* confetti */
+
+.confetti{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+pointer-events:none;
+}
+
+.confetti span{
+position:absolute;
+width:8px;
+height:8px;
+animation:confetti 3s linear forwards;
+}
+
+@keyframes confetti{
+0%{transform:translateY(-10px) rotate(0deg);}
+100%{transform:translateY(100vh) rotate(720deg);}
+}
+
+.footer{
+margin-top:35px;
+font-size:14px;
+color:#888;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.main-card{
+padding:25px;
+}
+
+.title{
+font-size:22px;
+}
+
+.countdown{
+font-size:20px;
+}
+
+.box{
+height:95px;
+font-size:38px;
+}
+
+.message-card{
+font-size:16px;
+padding:18px;
+}
+
+}
+
+/* HP KECIL */
+
+@media(max-width:480px){
+
+.box{
+height:85px;
+font-size:34px;
+}
+
+.countdown{
+font-size:18px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="heart-bg" id="hearts"></div>
+
+<div class="main-card">
+
+<h2 class="title">🎁 Hadiah Untuk Istriku</h2>
+<p class="subtitle">Buat istriku selamat bertambah umur yah, semoga yang disemogakan segera tersemogakan yah, doanya sehat terus makin sayang aku sama kia. Ini ada secercah hadiah buat kamu, semoga aja ada umroh nya amin 😁, pilih salah 1 yah, semoga beruntung</p>
+<p class="subtitle"></p>
+
+<div id="countdown" class="countdown"></div>
+
+<div class="row g-3 mt-3">
+
+<div class="col-4">
+<div class="box locked" onclick="openBox(0,this)">🎁</div>
+</div>
+
+<div class="col-4">
+<div class="box locked" onclick="openBox(1,this)">🎁</div>
+</div>
+
+<div class="col-4">
+<div class="box locked" onclick="openBox(2,this)">🎁</div>
+</div>
+
+</div>
+
+<div id="message" class="message">
+<div class="message-card" id="messageText"></div>
+</div>
+
+<div class="button-area">
+<button id="addBtn" class="btn btn-danger moving-btn">
+Mau tambah lagi? 😁
+</button>
+</div>
+
+<div class="footer">
+Dibuat dengan ❤️ oleh suamimu
+</div>
+
+</div>
+
+<div class="confetti" id="confetti"></div>
+
+
+<script>
+
+const openDate=new Date("Mar 10, 2026 00:00:00").getTime();
+
+const messages=[
+"💄 Gunakan hadiah ini untuk membeli sesuatu yang membuatmu semakin cantik.",
+"🛍️ Belilah barang yang sudah lama kamu inginkan.",
+"🏔️ Kita pergi naik gunung atau traveling ke tempat yang kamu mau."
+];
+
+let unlocked=false;
+let opened=false;
+
+function updateCountdown(){
+
+const now=new Date().getTime();
+const distance=openDate-now;
+
+if(distance<=0){
+
+document.getElementById("countdown").innerHTML=
+"🎉 Hari ini! Kamu boleh membuka hadiah ❤️";
+
+document.querySelectorAll(".box").forEach(box=>{
+box.classList.remove("locked");
+});
+
+unlocked=true;
+return;
+}
+
+const d=Math.floor(distance/(1000*60*60*24));
+const h=Math.floor((distance%(1000*60*60*24))/(1000*60*60));
+const m=Math.floor((distance%(1000*60*60))/(1000*60));
+const s=Math.floor((distance%(1000*60))/1000);
+
+document.getElementById("countdown").innerHTML=
+`Dibuka dalam ${d} hari ${h} jam ${m} menit ${s} detik`;
+
+}
+
+setInterval(updateCountdown,1000);
+
+/* tombol kabur */
+
+const btn=document.getElementById("addBtn");
+const area=document.querySelector(".button-area");
+
+btn.addEventListener("mouseover",function(){
+
+btn.innerText="Eits... tidak kena 😆";
+
+const maxX=area.clientWidth-btn.clientWidth;
+const maxY=area.clientHeight-btn.clientHeight;
+
+const x=Math.random()*maxX;
+const y=Math.random()*maxY;
+
+btn.style.left=x+"px";
+btn.style.top=y+"px";
+
+});
+
+/* buka box */
+
+function openBox(index,el){
+
+if(!unlocked){
+alert("Sabar dong 😆");
+return;
+}
+
+if(opened){
+return;
+}
+
+opened=true;
+
+el.classList.add("open");
+el.innerHTML="❤️";
+
+document.querySelectorAll(".box").forEach(box=>{
+if(box!==el){
+box.style.pointerEvents="none";
+box.style.opacity="0.4";
+}
+});
+
+document.getElementById("message").style.display="block";
+
+document.getElementById("messageText").innerHTML=
+`<div class="heart">❤️</div><br>${messages[index]}`;
+
+document.querySelector(".button-area").style.display="block";
+document.getElementById("ytMusic").src += "&autoplay=1";
+
+confetti();
+
+}
+
+/* confetti */
+
+function confetti(){
+
+const container=document.getElementById("confetti");
+
+for(let i=0;i<40;i++){
+
+const conf=document.createElement("span");
+
+conf.style.left=Math.random()*100+"%";
+conf.style.background=`hsl(${Math.random()*360},70%,60%)`;
+conf.style.animationDuration=2+Math.random()*2+"s";
+
+container.appendChild(conf);
+
+setTimeout(()=>conf.remove(),3000);
+
+}
+
+}
+
+/* floating hearts */
+
+function createHearts(){
+
+const hearts=document.getElementById("hearts");
+
+for(let i=0;i<25;i++){
+
+const h=document.createElement("span");
+
+h.innerHTML="❤️";
+h.style.left=Math.random()*100+"%";
+h.style.animationDuration=5+Math.random()*10+"s";
+h.style.fontSize=(15+Math.random()*20)+"px";
+
+hearts.appendChild(h);
+
+}
+
+}
+
+createHearts();
+
+</script>
+
+</body>
+</html>
